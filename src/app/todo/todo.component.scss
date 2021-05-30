@@ -1,5 +1,8 @@
 .body {
     padding: 30px;
+    .mb-20 {
+        margin-bottom: 20px;
+    }
     .add-task {
         width: 100%;
         max-width: 500px;
@@ -42,6 +45,17 @@
                             }
                         }
                     }
+                }
+            }
+            .bottom {
+                .colorBlue {
+                    color: blue;
+                }
+                .colorGreen {
+                    color: green;
+                }
+                .colorRed {
+                    color: red;
                 }
             }
         }

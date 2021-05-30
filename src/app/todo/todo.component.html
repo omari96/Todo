@@ -1,0 +1,110 @@
+<div class="body">
+    <button type="button" class="btn btn-primary mb-20" (click)="ShowAddTask()">Add new task</button>
+
+    <div class="add-task d-flex" *ngIf="isVisible">
+        <input type="text" class="input" placeholder="Task Name" [(ngModel)]="todoTitle">
+
+        <select [(ngModel)]="selectedOption" name="select">
+            <option *ngFor="let option of options">
+                {{option.name}}
+            </option>
+        </select>
+        <button type="button" class="btn btn-primary" (click)="addTodo()">Add</button>
+    </div>
+
+    <div class="cont">
+        <div class="card">
+            <div class="card-header">To-do</div>
+            <ul class="list-group with" *ngFor="let todo of todos; let i = index">
+                <li class="list-group-item d-flex flex-column">
+                    <div class="top d-flex justify-content-between">
+                        <div class="left d-flex">
+                            <span>{{todo.id}}</span>
+                            <div class="name">{{todo.title}}</div>
+                        </div>
+                        <div class="right">
+                            <div class="icon-cont d-flex">
+                                <div class="icon" (click)="sendProgress(i)">next</div>
+                                <div class="icon" (click)="removeTodo(i)">delete</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <span class="level" [ngClass]="{
+                        'colorBlue': todo.taskLevel === 'Easy',
+                        'colorGreen': todo.taskLevel === 'Medium', 
+                        'colorRed': todo.taskLevel === 'Hard'}">{{todo.taskLevel}}</span>
+                    </div>
+                </li>
+            </ul>
+            <ul class="list-group with" *ngIf="!todos?.length">
+                <li class="list-group-item d-flex flex-column">
+                    <span>List is empty</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">In Progress</div>
+            <ul class="list-group with" *ngFor="let progress of inProgress; let i = index">
+                <li class="list-group-item d-flex flex-column">
+                    <div class="top d-flex justify-content-between">
+                        <div class="left d-flex">
+                            <span>{{progress.id}}</span>
+                            <div class="name">{{progress.title}}</div>
+                        </div>
+                        <div class="right">
+                            <div class="icon-cont d-flex">
+                                <div class="icon" (click)="sendTodo(i)">prev</div>
+                                <div class="icon" (click)="sendDone(i)">next</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <span class="level" [ngClass]="{
+                            'colorBlue': progress.taskLevel === 'Easy',
+                            'colorGreen': progress.taskLevel === 'Medium', 
+                            'colorRed': progress.taskLevel === 'Hard'}">{{progress.taskLevel}}</span>
+                    </div>
+
+                </li>
+            </ul>
+            <ul class="list-group with" *ngIf="!inProgress?.length">
+                <li class="list-group-item d-flex flex-column">
+                    <span>List is empty</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Done</div>
+            <ul class="list-group with" *ngFor="let done of dones; let i = index">
+                <li class="list-group-item d-flex flex-column">
+                    <div class="top d-flex justify-content-between">
+                        <div class="left d-flex">
+                            <span>{{done.id}}</span>
+                            <div class="name">{{done.title}}</div>
+                        </div>
+                        <div class="right">
+                            <div class="icon-cont d-flex">
+                                <div class="icon" (click)="backProgress(i)">prev</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <span class="level" [ngClass]="{
+                            'colorBlue': done.taskLevel === 'Easy',
+                            'colorGreen': done.taskLevel === 'Medium', 
+                            'colorRed': done.taskLevel === 'Hard'}">{{done.taskLevel}}</span>
+                    </div>
+
+                </li>
+            </ul>
+            <ul class="list-group with" *ngIf="!dones?.length">
+                <li class="list-group-item d-flex flex-column">
+                    <span>List is empty</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
